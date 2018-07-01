@@ -45,7 +45,8 @@ target_include_directories(logic-axi4-stream PRIVATE
 )
 
 target_include_directories(logic-axi4-stream SYSTEM PRIVATE
-    ${SYSTEMC_INCLUDE_DIRS}
+    ${SYSTEMC_INCLUDE}
+    ${UVM_SYSTEMC_INCLUDE}
 )
 
 set(compile_options "")

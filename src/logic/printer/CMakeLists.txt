@@ -21,7 +21,8 @@ target_include_directories(logic-core-printer PRIVATE
 )
 
 target_include_directories(logic-core-printer SYSTEM PRIVATE
-    ${SYSTEMC_INCLUDE_DIRS}
+    ${SYSTEMC_INCLUDE}
+    ${UVM_SYSTEMC_INCLUDE}
 )
 
 logic_target_compile_options(logic-core-printer)

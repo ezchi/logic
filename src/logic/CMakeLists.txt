@@ -16,6 +16,8 @@ add_subdirectory(axi4)
 add_subdirectory(gtest)
 add_subdirectory(printer)
 
+_find_systemc()
+
 if (CMAKE_CXX_COMPILER_ID MATCHES Clang)
     set_source_files_properties(command_line.cpp
         PROPERTIES COMPILE_FLAGS -Wno-global-constructors
@@ -41,7 +43,8 @@ target_include_directories(logic-core PRIVATE
 )
 
 target_include_directories(logic-core SYSTEM PRIVATE
-    ${SYSTEMC_INCLUDE_DIRS}
+    ${SYSTEMC_INCLUDE}
+    ${UVM_SYSTEMC_INCLUDE}
     ${VERILATOR_INCLUDE_DIR}
 )
 
@@ -66,11 +69,12 @@ set_target_properties(logic PROPERTIES
 )
 
 target_link_libraries(logic PUBLIC
-    verilated scv uvm-systemc systemc)
+    verilated scv::scv UVMSystemC::uvm-systemc SystemC::systemc)
 
 target_include_directories(logic SYSTEM INTERFACE
     ${LOGIC_INCLUDE_DIR}
-    ${SYSTEMC_INCLUDE_DIRS}
+    ${SYSTEMC_INCLUDE}
+    ${UVM_SYSTEMC_INCLUDE}
     ${VERILATOR_INCLUDE_DIR}
 )
 

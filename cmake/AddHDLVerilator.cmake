@@ -23,7 +23,6 @@ endif()
 
 include(GetHDLDepends)
 
-find_package(SystemC REQUIRED COMPONENTS SCV UVM)
 find_package(Verilator)
 
 if (VERILATOR_FOUND)
@@ -300,7 +299,7 @@ function(add_hdl_verilator)
 
         if (CMAKE_CXX_COMPILER_ID MATCHES GNU OR
                 CMAKE_CXX_COMPILER_ID MATCHES Clang)
-            set(flags -std=c++11 -O2 -fdata-sections -ffunction-sections)
+            set(flags -std=c++14 -O2 -fdata-sections -ffunction-sections)
             list(APPEND compile_flags -CFLAGS '${flags}')
         endif()
 
@@ -350,12 +349,12 @@ function(add_hdl_verilator)
 
         set(systemc_module_includes
             "${verilator_library_dir}"
-            "${SYSTEMC_INCLUDE_DIRS}"
+            "${SYSTEMC_INCLUDE}"
             "${VERILATOR_INCLUDE_DIR}"
         )
 
         set(systemc_module_libraries
-            systemc
+            SystemC::systemc
             verilated
         )
 

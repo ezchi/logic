@@ -29,7 +29,6 @@ endif()
 
 function(_find_verilator)
     find_package(PackageHandleStandardArgs REQUIRED)
-    find_package(SystemC)
 
     find_program(VERILATOR_EXECUTABLE verilator
         HINTS $ENV{VERILATOR_ROOT}
@@ -92,7 +91,7 @@ function(_find_verilator)
             COMPILE_DEFINITIONS "VM_COVERAGE=1"
     )
 
-    target_link_libraries(verilated PRIVATE systemc)
+    target_link_libraries(verilated PRIVATE SystemC::systemc)
 
     set_target_properties(verilated PROPERTIES
         ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
@@ -102,7 +101,7 @@ function(_find_verilator)
     target_include_directories(verilated SYSTEM PRIVATE
         ${VERILATOR_INCLUDE_DIR}
         ${VERILATOR_INCLUDE_DIR}/vltstd
-        ${SYSTEMC_INCLUDE_DIRS}
+        ${SYSTEMC_INCLUDE}
     )
 
     if (CMAKE_CXX_COMPILER_ID MATCHES GNU)

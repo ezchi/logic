@@ -23,12 +23,6 @@ endif()
 function(logic_target_compile_options target)
     set(options "")
 
-    if (CMAKE_SYSTEM_NAME MATCHES CYGWIN)
-        list(APPEND options -std=gnu++11)
-    else()
-        list(APPEND options -std=c++11)
-    endif()
-
     if (NOT CMAKE_SYSTEM_NAME MATCHES CYGWIN)
         list(APPEND options -fPIC)
     endif()
@@ -87,14 +81,13 @@ function(logic_target_link_libraries target)
     set(options "")
 
     if (CMAKE_BUILD_TYPE MATCHES "Release" OR NOT CMAKE_BUILD_TYPE)
-        list(APPEND options
-            -Wl,--gc-sections
-            -Wl,--strip-all
-        )
-    elseif (CMAKE_BUILD_TYPE MATCHES "MinSizeRel")
-        list(APPEND options
-            -Wl,--gc-sections
-        )
+        # list(APPEND options
+            # -Wl,--strip-all
+        # )
+    # elseif (CMAKE_BUILD_TYPE MATCHES "MinSizeRel")
+    #     list(APPEND options
+    #         -Wl,--gc-sections
+    #     )
     elseif (CMAKE_BUILD_TYPE MATCHES "Coverage")
         list(APPEND options
             --coverage
